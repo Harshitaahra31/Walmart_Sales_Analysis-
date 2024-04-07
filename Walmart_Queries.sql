@@ -3,14 +3,14 @@
 -- -----------------------------------------------------------------------------------------------------------
 
 
--- what is total reveune and total cost of gross sales and profit of 2019 (JAN,FEB,MAR) 
+-- What is the total revenue and total cost of gross sales and profit of 2023 (JAN, FEB, MAR) 
 
 select
        round(sum(cogs),2) as total_cogs , round(sum(revenue),2) as total_revenue , 
 	   round(round(sum(revenue),2)-round(sum(cogs),2) ,2) as profit
 from revenue;
 
--- what is total revenue by month
+-- What is total revenue by month
 
 select
       s.month , round(sum(r.revenue),2) as revenue 
@@ -20,7 +20,7 @@ group by s.month
 order by revenue desc
 
 
-# total revenue by cities
+# Total revenue by cities
 select 
      s.city, s.branch,round(sum(r.revenue),2) as revenue 
 from sales_data s 
@@ -33,7 +33,7 @@ order by revenue desc;
 select 
     time_of_day, count(*) as sales_weekend
 from sales_data 
-where day_name = 'sunday'
+where day_name = 'Sunday'
 group by time_of_day;
 
 
@@ -46,10 +46,10 @@ inner join revenue r on t.`invoice _id` = r.`invoice _id`
 group by customer_type 
 order by hight_revenue desc;
 
--- Which city has the largest tax percent/ VAT (Value Added Tax)?
+-- Which city has the largest tax percentage/ VAT (Value Added Tax)?
 
 select 
-     city , round(sum(`tax_12%`),2) as hight_VAT 
+     City , round(sum(`tax_12%`),2) as hight_VAT 
 from tax_cal
 group by city 
 order by hight_VAT desc;
@@ -143,8 +143,8 @@ order by total_vat desc
 limit 3;
 
 
--- Fetch each product line and add a column to those product line showing 
--- "Good", "Bad". Good if its greater than average sales
+-- Fetch each product line and add a column to those product Types showing 
+-- "Good", "Bad". Good if it's greater than average sales
 
 with avg_sale as (
 select 
@@ -160,7 +160,7 @@ select
 from sales_data s join product_details p on s.product_code = p.product_id
 group by s.product_code; 
 
--- Which branch sold more products than average product sold?
+-- Which branch sold more products than the average product sold?
 
 with avg_sale as(
 select 
@@ -176,7 +176,7 @@ having total_sales > (select * from avg_sale)
 order by total_sales desc;
 
 
--- What is the top 3 most common product type by gender?
+-- What are the top 3 most common product types by gender?
 
 select  
       p.product_name , 
@@ -204,14 +204,14 @@ inner join product_details p on s.product_code= p.product_id
 group by s.product_code
 order by avg_rating desc;
 
--- which product has lowest revenue 
+-- Which product has the lowest revenue 
 select * 
 from product_revenue
 order by  product_revenue  asc
 limit 3;
    
    
--- which product has lowest rating than the avg rating
+-- Which product has the lowest rating than the average rating
 with avg_rating as (
 select 
 round(avg(rating),2) as avg_rating
@@ -230,7 +230,7 @@ select
       s.month ,  p.product_name , sum( s.quantity) over (partition by p.product_name ) as quan
 from sales_data s 
 join product_details p on s.product_code= p.product_id
-order by s.month , quan desc;
+order by s.month, quan desc;
 
 
 
@@ -245,7 +245,7 @@ select
 count(distinct  customer_type) 
 from sales_data
 
--- total number of gender types data have?
+-- the total number of gender types data have?
 
 select 
       Gender , count(*) as total_number
@@ -253,7 +253,7 @@ from sales_data
 group by gender;
 
 
--- contibution of genders in sales
+-- Contribution of genders in sales
 
 select 
       s.gender ,round(sum(r.revenue),2) as rev
@@ -290,7 +290,7 @@ from sales_data
 group by customer_type
 order by order_times desc;
 
--- Which gender is purchasing most ?
+-- Which gender is purchasing most?
 
 select
         gender , count(*) as total_order
@@ -306,7 +306,7 @@ from sales_data
 where branch = 'C' 
 group by gender ;
 
--- Which day of the week has most sales by branch? 
+-- Which day of the week has the most sales by branch? 
 
 select 
     day_name ,round(sum( r.revenue),1) as total_sales
