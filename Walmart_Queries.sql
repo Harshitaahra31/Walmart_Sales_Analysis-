@@ -3,7 +3,7 @@
 -- -----------------------------------------------------------------------------------------------------------
 
 
--- What is the total revenue and total cost of gross sales and profit of 2023 (JAN, FEB, MAR) 
+-- What is the total revenue and total cost of gross sales and profit of Second Quarter(JAN, FEB, MAR) 
 
 select
        round(sum(cogs),2) as total_cogs , round(sum(revenue),2) as total_revenue , 
